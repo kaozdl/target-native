@@ -8,18 +8,37 @@ import Input from '../../components/common/input';
 import Button from '../../components/common/button';
 
 
-export default class App extends React.Component {
+export default class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       password: "",
+      key: "NOT LOGGED IN",
     }
   }
   handleInput = (inputName, text) => this.setState({ [inputName]: text });
-  handleSubmit = () => {
-    alert(this.state.username);
-    alert(this.state.password);
+  handleSubmit = async () => {
+    let response = await fetch('https://kaozdl-target.herokuapp.com/api/v1/rest-auth/login/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+      }),
+    })
+      .then((response) => {
+        let responseObj = JSON.parse(response);
+        let login = (responseObj.bodyInit.key) ? responseObj.bodyInit.key : "NOT LOGGED IN";
+        this.setState({ key: login });
+        alert(login);
+      })
+      .catch((response => {
+        alert("Login Error");
+      }));
   }
   render() {
     return (

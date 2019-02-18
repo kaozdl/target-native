@@ -4,8 +4,9 @@ const styles = StyleSheet.create({
     input: {
         borderColor: 'black',
         borderWidth: 1,
-        width: 200,
+        width: 220,
         padding: 10,
+        textAlign: 'center'
 
     },
     label: {
