@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 
 import SignIn from './screens/signIn';
+import SignUp from './screens/signUp';
 
 export default class App extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <SignIn />
+        <SignUp />
       </View>
     );
   }
