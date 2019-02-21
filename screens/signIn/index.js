@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
+import { connect } from 'react-redux';
+import { login } from '../../actions/session';
 import styles from './styles';
 import Background from '../common/background';
 
@@ -8,37 +10,42 @@ import Input from '../../components/common/input';
 import Button from '../../components/common/button';
 
 
-export default class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
+class SignIn extends React.Component {
+  constructor() {
+    super();
     this.state = {
       username: "",
       password: "",
-      key: "NOT LOGGED IN",
     }
   }
   handleInput = (inputName, text) => this.setState({ [inputName]: text });
-  handleSubmit = async () => {
-    let response = await fetch('https://kaozdl-target.herokuapp.com/api/v1/rest-auth/login/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-      }),
-    })
-      .then((response) => {
-        let responseObj = JSON.parse(response);
-        let login = (responseObj.bodyInit.key) ? responseObj.bodyInit.key : "NOT LOGGED IN";
-        this.setState({ key: login });
-        alert(login);
-      })
-      .catch((response => {
-        alert("Login Error");
-      }));
+  handleSubmit = () => {
+    const { username, password } = this.state;
+    const { signIn } = this.props;
+    console.log('PRELOGIN');
+    const user = { username: username, password: password };
+    this.props.login(username, password);
+    console.log('POSTLOGIN');
+    /* let response = await fetch('https://kaozdl-target.herokuapp.com/api/v1/rest-auth/login/', {
+       method: 'POST',
+       headers: {
+         Accept: 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         username: this.state.username,
+         password: this.state.password,
+       }),
+     })
+       .then((response) => {
+         let responseObj = JSON.parse(response);
+         let login = (responseObj.bodyInit.key) ? responseObj.bodyInit.key : "NOT LOGGED IN";
+         this.setState({ key: login });
+         alert(login);
+       })
+       .catch((response => {
+         alert("Login Error");
+       }));*/
   }
   render() {
     return (
@@ -73,3 +80,10 @@ export default class SignIn extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => state;
+const mapDispatchToProps = dispatch => ({
+  login: (username, password) => dispatch(login(username, password))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
