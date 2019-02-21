@@ -16,14 +16,12 @@ const loginError = (error) => ({
 
 export const login = (username, password) => async (dispatch) => {
   dispatch(loginLoading());
-  console.log('STARTLOADING')
   Api = new ApiClient();
   try {
     response = await Api.login({ username: username, password: password });
     dispatch(loginSuccess(response));
   }
   catch (error) {
-    console.log(error);
     dispatch(loginError(error));
   }
 }

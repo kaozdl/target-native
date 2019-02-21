@@ -13,6 +13,5 @@ export default function configureStore(initialState) {
   ];
 
   const store = createStore(AppReducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));
-  console.log(store);
   return store;
 }

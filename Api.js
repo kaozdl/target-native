@@ -1,11 +1,12 @@
+import Config from 'react-native-config';
 export default class ApiClient {
   constructor() {
-    this.url = 'https://kaozdl-target.herokuapp.com/api/v1/';
+    this.url = Config.API_URL;
   }
   //Generic rest client
   async create(model, data) {
     try {
-      let response = await fetch(this.url + model + '/', {
+      let response = await fetch(`${this.url}${model}/`, {
         method: 'POST',
         headers: {
           Accept: 'appplication/json',
@@ -22,7 +23,7 @@ export default class ApiClient {
   }
   async retrieve(model, id) {
     try {
-      let response = await fetch(this.url + model + '/' + id).then(data);
+      let response = await fetch(`${this.url}${model}/${id}`).then(data);
       return response;
     }
     catch (error) {
@@ -31,7 +32,7 @@ export default class ApiClient {
   }
   async update(model, id, data) {
     try {
-      let response = await fetch(this.url + model + '/' + id, {
+      let response = await fetch(`${this.url}${model}/${id}`, {
         method: 'PUT',
         headers: {
           Accept: 'appplication/json',
@@ -48,7 +49,7 @@ export default class ApiClient {
   }
   async delete(model, id) {
     try {
-      let response = await fetch(this.url + model + '/' + id, {
+      let response = await fetch(`${this.url}${model}/${id}`, {
         method: 'DELETE',
         headers: {
           Accept: 'appplication/json',
@@ -64,7 +65,7 @@ export default class ApiClient {
   //rest-auth methods
   async login(data) {
     try {
-      let response = await fetch(this.url + 'rest-auth/login/', {
+      let response = await fetch(`${this.url}rest-auth/login/`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -80,7 +81,7 @@ export default class ApiClient {
   }
   async logout() {
     try {
-      let response = await fetch(this.url + 'rest-auth/logout/', {
+      let response = await fetch(`${this.url}rest-auth/logout/`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -95,7 +96,7 @@ export default class ApiClient {
   }
   async register(user) {
     try {
-      let response = await fetch(this.url + 'rest-auth/registration/', {
+      let response = await fetch(`${this.url}rest-auth/registration/`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
