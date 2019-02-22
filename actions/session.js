@@ -24,8 +24,8 @@ const logoutSuccess = () => ({
 });
 
 export const logout = () => async (dispatch) => {
-  dispatch(logoutLoading);
-  setTimeout(dispatch(logoutSuccess), 3000);
+  dispatch(logoutLoading());
+  setTimeout(() => dispatch(logoutSuccess()), 300);
 }
 
 export const login = (username, password) => async (dispatch) => {
@@ -33,7 +33,14 @@ export const login = (username, password) => async (dispatch) => {
   Api = new ApiClient();
   try {
     response = await Api.login({ username: username, password: password });
-    dispatch(loginSuccess(response));
+    if (response.status === 200)
+      dispatch(loginSuccess(response));
+    else {
+      dispatch(loginError(response));
+      alert(`Something went wrong! 
+      ${response.status} - ${response._bodyText}`
+      );
+    }
   }
   catch (error) {
     dispatch(loginError(error));

@@ -13,19 +13,16 @@ import Ruler from '../../components/common/ruler';
 
 
 class SignIn extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      password: "",
-    }
+  state = {
+    username: "",
+    password: "",
   }
   handleInput = (inputName, text) => this.setState({ [inputName]: text });
   handleSubmit = () => {
     const { username, password } = this.state;
     this.props.login(username, password);
   }
-  handleSignOut = () => this.props.logout();
+  handleSignOut = () => { this.props.logout() };
   render() {
     let isLogged = this.props.session.isLoggedIn;
     if (isLogged)
@@ -81,7 +78,7 @@ class SignIn extends React.Component {
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = dispatch => ({
   login: (username, password) => dispatch(login(username, password)),
-  logout: () => dispatch(logout)
+  logout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

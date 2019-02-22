@@ -15,19 +15,19 @@ export default class ApiClient {
         body: JSON.stringify(data),
       },
       );
-      return response;
+      return response.json();
     }
     catch (error) {
-      return error;
+      throw error;
     }
   }
   async retrieve(model, id) {
     try {
       let response = await fetch(`${this.url}${model}/${id}`).then(data);
-      return response;
+      return response.json();
     }
     catch (error) {
-      return error;
+      throw error;
     }
   }
   async update(model, id, data) {
@@ -44,7 +44,7 @@ export default class ApiClient {
       return response;
     }
     catch (error) {
-      return error;
+      throw error;
     }
   }
   async delete(model, id) {
@@ -59,7 +59,7 @@ export default class ApiClient {
       return response;
     }
     catch (error) {
-      return error;
+      throw error;
     }
   }
   //rest-auth methods
@@ -76,7 +76,7 @@ export default class ApiClient {
       return response;
     }
     catch (error) {
-      return error;
+      throw error;
     }
   }
   async logout() {
@@ -88,10 +88,10 @@ export default class ApiClient {
           'Content-Type': 'application/json',
         },
       });
-      return response;
+      return response.json();
     }
     catch (error) {
-      return error;
+      throw error;
     }
   }
   async register(user) {
@@ -104,10 +104,10 @@ export default class ApiClient {
         },
         body: JSON.stringify(data),
       });
-      return response;
+      return response.json();
     }
     catch (error) {
-      return error;
+      throw error;
     }
   }
 }
