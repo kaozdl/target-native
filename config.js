@@ -3,3 +3,4 @@ export const colors = {
   white: '#ffffff',
   grey: '#808080',
 }
+export const APP_NAME = "TARGET MVD"

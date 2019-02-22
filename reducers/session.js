@@ -14,6 +14,10 @@ export default function targetApp(state = initialState, action) {
       return { ...state, isLoading: false, isLoggedIn: true }
     case (types.LOGIN_ERROR):
       return { ...state, isLoading: false, isLoggedIn: false }
+    case (types.LOGOUT_PENDING):
+      return { ...state, isLoading: false }
+    case (types.LOGOUT_SUCCESS):
+      return { ...state, isLoading: false, isLoggedIn: false }
     default:
       return state;
   }
