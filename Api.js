@@ -1,26 +1,15 @@
 import Config from 'react-native-config';
+import axios from 'react-native-axios';
+
 const url = Config.API_URL;
 
-function _processRequest(url, method, data) {
+async function _processRequest(url, method, data) {
   return new Promise((resolve, reject) => {
-    fetch(url, {
-      method: method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then(response => response.json()
-    ).then(response => resolve(response)
-    )
-      .catch(error => {
-        reject({
-          message: error.text,
-          status: error.status
-        })
-      });
-  })
-}
+    axios({ method, url, data })
+      .then((response) => resolve(response.data))
+      .catch((error) => reject(error))
+  });
+};
 
 //Generic rest client
 const create = async (model, data) => _processRequest(`${url}${model}/`, 'POST', data);

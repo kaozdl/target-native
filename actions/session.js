@@ -31,12 +31,9 @@ export const login = (username, password) => async (dispatch) => {
   dispatch(loginLoading());
   try {
     response = await apiLogin({ username, password });
-    console.log(response);
     dispatch(loginSuccess(response.key));
   } catch (error) {
-    const message = (error.status >= 500) ?
-      `Oops, something went wrong \n Error: ${error.status}` :
-      `Error: ${error.status} \n ${error.message}`
+    const message = `Error: ${error.message}`;
     alert(message);
     dispatch(loginError());
   }
