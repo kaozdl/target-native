@@ -1,18 +1,17 @@
-import ApiClient from '../Api';
+import { login as apiLogin } from '../Api';
 import * as types from './actionTypes';
 
-const loginSuccess = (response) => ({
+const loginSuccess = (key) => ({
   type: types.LOGIN_SUCCESS,
-  response,
+  key,
 });
 
 const loginLoading = () => ({
   type: types.LOGIN_PENDING,
 });
 
-const loginError = (error) => ({
+const loginError = () => ({
   type: types.LOGIN_ERROR,
-  error
 });
 
 const logoutLoading = () => ({
@@ -30,20 +29,16 @@ export const logout = () => async (dispatch) => {
 
 export const login = (username, password) => async (dispatch) => {
   dispatch(loginLoading());
-  Api = new ApiClient();
   try {
-    response = await Api.login({ username: username, password: password });
-    if (response.status === 200)
-      dispatch(loginSuccess(response));
-    else {
-      dispatch(loginError(response));
-      alert(`Something went wrong! 
-      ${response.status} - ${response._bodyText}`
-      );
-    }
-  }
-  catch (error) {
-    dispatch(loginError(error));
+    response = await apiLogin({ username, password });
+    console.log(response);
+    dispatch(loginSuccess(response.key));
+  } catch (error) {
+    const message = (error.status >= 500) ?
+      `Oops, something went wrong \n Error: ${error.status}` :
+      `Error: ${error.status} \n ${error.message}`
+    alert(message);
+    dispatch(loginError());
   }
 }
 

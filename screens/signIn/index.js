@@ -10,7 +10,7 @@ import Background from '../common/background';
 import Input from '../../components/common/input';
 import Button from '../../components/common/button';
 import Ruler from '../../components/common/ruler';
-
+import Loader from '../../components/common/loader';
 
 class SignIn extends React.Component {
   state = {
@@ -25,7 +25,14 @@ class SignIn extends React.Component {
   handleSignOut = () => { this.props.logout() };
   render() {
     let isLogged = this.props.session.isLoggedIn;
-    if (isLogged)
+    let isLoading = this.props.session.isLoading;
+    if (isLoading)
+      return (
+        <Background>
+          <Loader />
+        </Background>
+      )
+    else if (isLogged)
       return (
         <Background>
           <View style={styles.header}>

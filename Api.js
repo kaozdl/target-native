@@ -1,113 +1,35 @@
 import Config from 'react-native-config';
-export default class ApiClient {
-  constructor() {
-    this.url = Config.API_URL;
-  }
-  //Generic rest client
-  async create(model, data) {
-    try {
-      let response = await fetch(`${this.url}${model}/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'appplication/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+const url = Config.API_URL;
+
+function _processRequest(url, method, data) {
+  return new Promise((resolve, reject) => {
+    fetch(url, {
+      method: method,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      );
-      return response.json();
-    }
-    catch (error) {
-      throw error;
-    }
-  }
-  async retrieve(model, id) {
-    try {
-      let response = await fetch(`${this.url}${model}/${id}`).then(data);
-      return response.json();
-    }
-    catch (error) {
-      throw error;
-    }
-  }
-  async update(model, id, data) {
-    try {
-      let response = await fetch(`${this.url}${model}/${id}`, {
-        method: 'PUT',
-        headers: {
-          Accept: 'appplication/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      },
-      );
-      return response;
-    }
-    catch (error) {
-      throw error;
-    }
-  }
-  async delete(model, id) {
-    try {
-      let response = await fetch(`${this.url}${model}/${id}`, {
-        method: 'DELETE',
-        headers: {
-          Accept: 'appplication/json',
-          'Content-Type': 'application/json',
-        },
+      body: JSON.stringify(data),
+    }).then(response => response.json()
+    ).then(response => resolve(response)
+    )
+      .catch(error => {
+        reject({
+          message: error.text,
+          status: error.status
+        })
       });
-      return response;
-    }
-    catch (error) {
-      throw error;
-    }
-  }
-  //rest-auth methods
-  async login(data) {
-    try {
-      let response = await fetch(`${this.url}rest-auth/login/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      return response;
-    }
-    catch (error) {
-      throw error;
-    }
-  }
-  async logout() {
-    try {
-      let response = await fetch(`${this.url}rest-auth/logout/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-      return response.json();
-    }
-    catch (error) {
-      throw error;
-    }
-  }
-  async register(user) {
-    try {
-      let response = await fetch(`${this.url}rest-auth/registration/`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      return response.json();
-    }
-    catch (error) {
-      throw error;
-    }
-  }
+  })
 }
+
+//Generic rest client
+const create = async (model, data) => _processRequest(`${url}${model}/`, 'POST', data);
+const retrieve = async (model, id) => _processRequest(`${url}${model}/${id}`, 'GET');
+const update = async (model, id, data) => _processRequest(`${url}${model}/${id}`, 'PUT', data);
+const destroy = async (model, id) => _processRequest(`${url}${model}/${id}`, 'DELETE');
+//rest-auth methods
+const login = async (data) => _processRequest(`${url}rest-auth/login/`, 'POST', data);
+const logout = async () => _processRequest(`${url}rest-auth/logout/`, 'POST');
+const register = async (data) => _processRequest(`${url}rest-auth/registration/`, 'POST', data);
+
+export { create, retrieve, update, destroy, login, logout, register }
