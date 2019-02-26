@@ -6,9 +6,6 @@ import createStore from './store/configureStore';
 
 const store = createStore({});
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <Provider store={store}>

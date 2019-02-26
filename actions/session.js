@@ -12,6 +12,7 @@ const loginLoading = () => ({
 
 const loginError = () => ({
   type: types.LOGIN_ERROR,
+  message
 });
 
 const logoutLoading = () => ({
@@ -34,8 +35,7 @@ export const login = (username, password) => async (dispatch) => {
     dispatch(loginSuccess(response.key));
   } catch (error) {
     const message = `Error: ${error.message}`;
-    alert(message);
-    dispatch(loginError());
+    dispatch(loginError(message));
   }
 }
 
