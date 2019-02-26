@@ -5,12 +5,15 @@ import { APP_NAME } from '../../config';
 import { connect } from 'react-redux';
 import { login, logout } from '../../actions/session';
 import styles from './styles';
+
 import Background from '../common/background';
+import MapScreen from '../map';
 
 import Input from '../../components/common/input';
 import Button from '../../components/common/button';
 import Ruler from '../../components/common/ruler';
 import Loader from '../../components/common/loader';
+
 
 class SignIn extends React.Component {
   state = {
@@ -24,7 +27,7 @@ class SignIn extends React.Component {
   }
   handleSignOut = () => { this.props.logout() };
   render() {
-    let isLogged = this.props.session.isLoggedIn;
+    let isLogged = true//this.props.session.isLoggedIn;
     let isLoading = this.props.session.isLoading;
     if (isLoading)
       return (
@@ -34,17 +37,7 @@ class SignIn extends React.Component {
       )
     else if (isLogged)
       return (
-        <Background>
-          <View style={styles.header}>
-            <Text>
-              Welcome!
-          </Text>
-            <Button
-              name="SIGN OUT"
-              action={this.handleSignOut}
-            />
-          </View>
-        </Background>
+        <MapScreen />
       )
     else
       return (
