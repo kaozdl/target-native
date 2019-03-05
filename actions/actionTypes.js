@@ -1,6 +1,16 @@
+//Session Action Types
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_PENDING = 'LOGOUT_PENDING';
 export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+//Targets Action Types
+export const TARGETS_LOADING = 'TARGETS_LOADING';
+export const TARGETS_LOADED = 'TARGETS_LOADED';
+export const TARGET_LOADING = 'TARGET_LOADING';
+export const TARGET_LOADED = 'TARGET_LOADED';
+export const TARGET_SUBMITTING = 'TARGET_SUBMITTING';
+export const TARGET_SUBMIT_SUCCESS = 'TARGET_SUBMIT_SUCCESS';
+export const TARGET_ERROR = 'TARGET_ERROR';
+export const TARGETS_ERROR = 'TARGETS_ERROR';
