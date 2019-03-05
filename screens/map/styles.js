@@ -16,10 +16,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end'
   },
+  headerLeft: {
+    flex: 1,
+    alignItems: 'flex-start'
+  },
+  headerRight: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+  headerText: {
+    marginBottom: 10,
+  },
   content: {
     ...common.common,
     flex: 1,
     backgroundColor: 'green',
+  },
+  map: {
+    flex: 1,
   },
   footer: {
     ...common.common,

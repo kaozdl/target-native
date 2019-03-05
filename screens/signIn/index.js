@@ -27,51 +27,38 @@ class SignIn extends React.Component {
   }
   handleSignOut = () => { this.props.logout() };
   render() {
-    let isLogged = true//this.props.session.isLoggedIn;
-    let isLoading = this.props.session.isLoading;
-    if (isLoading)
-      return (
-        <Background>
-          <Loader />
-        </Background>
-      )
-    else if (isLogged)
-      return (
-        <MapScreen />
-      )
-    else
-      return (
-        <Background>
-          <View style={styles.header}>
-            <Text style={styles.headerFont}>{APP_NAME}</Text>
+    return (
+      <View style={{ flex: 1 }}>
+        <View style={styles.header}>
+          <Text style={styles.headerFont}>{APP_NAME}</Text>
+        </View>
+        <View style={styles.container}>
+          <Input
+            label={'USERNAME'}
+            bindTo={'username'}
+            handler={this.handleInput}
+          />
+          <Input
+            label={'PASSWORD'}
+            bindTo={'password'}
+            handler={this.handleInput}
+          />
+          <Button name="SIGN IN" action={this.handleSubmit}></Button>
+          <View style={styles.component}>
+            <Text>Forgot your password?</Text>
           </View>
-          <View style={styles.container}>
-            <Input
-              label={'USERNAME'}
-              bindTo={'username'}
-              handler={this.handleInput}
-            />
-            <Input
-              label={'PASSWORD'}
-              bindTo={'password'}
-              handler={this.handleInput}
-            />
-            <Button name="SIGN IN" action={this.handleSubmit}></Button>
-            <View style={styles.component}>
-              <Text>Forgot your password?</Text>
-            </View>
-            <View style={styles.component}>
-              <Text style={{ fontWeight: 'bold' }}>CONNECT WITH FACEBOOK</Text>
-            </View>
+          <View style={styles.component}>
+            <Text style={{ fontWeight: 'bold' }}>CONNECT WITH FACEBOOK</Text>
           </View>
-          <View style={styles.footer}>
-            <Ruler
-              length={100}
-              text="SIGN UP"
-            />
-          </View>
-        </Background>
-      )
+        </View>
+        <View style={styles.footer}>
+          <Ruler
+            length={100}
+            text="SIGN UP"
+          />
+        </View>
+      </View>
+    )
   }
 }
 

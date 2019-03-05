@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Provider } from 'react-redux';
-import SignIn from './screens/signIn';
+import Main from './main';
 import createStore from './store/configureStore';
 
 const store = createStore({});
@@ -13,7 +13,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
-          <SignIn />
+          <Main />
         </View>
       </Provider>
     );
