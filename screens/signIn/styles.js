@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
   headerFont: {
     fontWeight: 'bold',
     fontSize: 31,
+  },
+  component: {
+    padding: 20
   }
 });
 
